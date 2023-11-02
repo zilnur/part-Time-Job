@@ -113,7 +113,7 @@ class CollectionViewCell: UICollectionViewCell {
     ///Заполнение SubViews
     func setupValues(model: PartTimeJob) {
         professionLabel.text = model.profession
-        priceLabel.setupText(text: model.salary.formatted(.number))
+        priceLabel.setupText(text: model.salary.formatted(.number) + " ₽")
         logoImageView.imageFromServerURL(model.logo ?? "", placeHolder: UIImage(systemName: "hourglass"))
         companyLabel.text = model.employer
         timeLabel.setupText(text: model.date.toDate(format: .time))
