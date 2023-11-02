@@ -46,15 +46,9 @@ extension Presenter: PresenterProtocol {
                 }
             }
         } catch NetworkErrors.wrongURL {
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
                 self.view.alert(rirle: "Ошибка", text: NetworkErrors.wrongURL.localizedDescription, handler: nil)
-            }
         } catch {
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
                 self.view.alert(rirle: "Ошибка", text: error.localizedDescription, handler: nil)
-            }
         }
     }
     
