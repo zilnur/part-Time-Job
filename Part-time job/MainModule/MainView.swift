@@ -90,7 +90,7 @@ class MainView: UIView {
     
     ///Заполнение сабвью
     func setButtonTitleAndColor(count: Int) {
-        let color: UIColor = count == .zero ? .grayBackgournd : .yellowBackground
+        let color: UIColor = count == .zero ? .grayBackground : .yellowBackground
         let text = count == .zero ? "Забронировать подработки" : "Забронировать " + String(localized: "\(count) job")
         button.setTitle(text, for: .normal)
         button.backgroundColor = color

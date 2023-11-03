@@ -14,7 +14,7 @@ class TextWithColorBackground: UIView {
     init(isGray: Bool) {
         super.init(frame: .zero)
         layer.cornerRadius = 4
-        backgroundColor = isGray ? .grayBackgournd : .yellowBackground
+        backgroundColor = isGray ? .grayBackground : .yellowBackground
         configureSubView()
         addSubiew()
     }

@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     }
 }
 
+// MARK: - ViewProtocol
 extension ViewController: ViewProtocol {
     
     ///Перезагрузка коллекции
@@ -65,6 +66,7 @@ extension ViewController: ViewProtocol {
     }
 }
 
+// MARK: - MainViewProtocol
 extension ViewController: MainViewProtocol {
     
     ///Создание и настройка DataSource для коллекции
@@ -89,7 +91,9 @@ extension ViewController: MainViewProtocol {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension ViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell,
               let presenter = presenter else { return }
@@ -101,8 +105,10 @@ extension ViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UISearchBarDelegate
 extension ViewController: UISearchBarDelegate {
     
+    //Обновление таблицы при вводе слова в поисковую строку
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let presenter = presenter else { return }
         reloadViews(model: presenter.getModel(searchFilter: searchText))
