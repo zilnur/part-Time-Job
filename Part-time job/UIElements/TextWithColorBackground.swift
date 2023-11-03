@@ -9,7 +9,7 @@ import UIKit
 
 class TextWithColorBackground: UIView {
 
-    private var textLabel: UILabel!
+    private let textLabel = UILabel()
     
     init(isGray: Bool) {
         super.init(frame: .zero)
@@ -24,7 +24,6 @@ class TextWithColorBackground: UIView {
     }
     
     private func configureSubView() {
-        textLabel = UILabel()
         textLabel.font = .systemFont(ofSize: 12, weight: .medium)
     }
     

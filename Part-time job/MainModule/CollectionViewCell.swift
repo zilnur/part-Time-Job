@@ -9,12 +9,12 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     
-    private var professionLabel: UILabel!
-    private var priceLabel: TextWithColorBackground!
-    private var logoImageView: UIImageView!
-    private var companyLabel: UILabel!
-    private var dateLabel: TextWithColorBackground!
-    private var timeLabel: TextWithColorBackground!
+    private let professionLabel = UILabel()
+    private let priceLabel = TextWithColorBackground(isGray: false)
+    private let logoImageView = UIImageView()
+    private let companyLabel = UILabel()
+    private let dateLabel = TextWithColorBackground(isGray: true)
+    private let timeLabel = TextWithColorBackground(isGray: true)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,23 +59,14 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     private func configSubViews() {
-        professionLabel = UILabel()
         professionLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-
-        priceLabel = TextWithColorBackground(isGray: false)
         
-        logoImageView = UIImageView()
         logoImageView.clipsToBounds = true
         logoImageView.layer.cornerRadius = 16
         logoImageView.layer.borderWidth = 1
         logoImageView.layer.borderColor = UIColor(red: 0.933, green: 0.933, blue: 0.933, alpha: 1).cgColor
         
-        companyLabel = UILabel()
         companyLabel.font = .systemFont(ofSize: 13, weight: .semibold)
-        
-        dateLabel = TextWithColorBackground(isGray: true)
-        
-        timeLabel = TextWithColorBackground(isGray: true)
         
         setupSubviews()
     }

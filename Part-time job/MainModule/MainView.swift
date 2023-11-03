@@ -14,8 +14,8 @@ protocol MainViewProtocol: AnyObject {
 
 class MainView: UIView {
     
-    private var button: UIButton!
-    private var backgroundView: UIView!
+    private let button = UIButton()
+    private let backgroundView = UIView()
     var collectionView: UICollectionView!
     weak var delegate: MainViewProtocol!
     
@@ -33,13 +33,11 @@ class MainView: UIView {
     }
     
     private func configureButton() {
-        button = UIButton()
         button.layer.cornerRadius = 6.93
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     private func configureBackgroundView() {
-        backgroundView = UIView()
         backgroundView.backgroundColor = .white
         backgroundView.alpha = 0.8
     }

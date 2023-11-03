@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     weak var presenter: Presenter?
     
-    private var searchBar: UISearchBar!
+    private let searchBar = UISearchBar()
     private var dataSource: UICollectionViewDiffableDataSource<Int, PartTimeJob>!
     private var mainView: MainView!
 
@@ -37,7 +37,6 @@ class ViewController: UIViewController {
     }
     
     private func configureSearchBar() {
-        searchBar = UISearchBar()
         searchBar.placeholder = "Поиск"
         searchBar.delegate = self
         searchBar.sizeToFit()
