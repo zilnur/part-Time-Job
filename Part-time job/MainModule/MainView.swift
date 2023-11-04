@@ -10,12 +10,14 @@ import UIKit
 protocol MainViewProtocol: AnyObject {
     func dataSource(collectionView: UICollectionView)
     func buttonActionConfiguration()
+    func pullToReload()
 }
 
 class MainView: UIView {
     
     private let button = UIButton()
     private let backgroundView = UIView()
+    let refreshControl = UIRefreshControl()
     var collectionView: UICollectionView!
     weak var delegate: MainViewProtocol!
     
@@ -56,6 +58,9 @@ class MainView: UIView {
     
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+        collectionView.addSubview(refreshControl)
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.showsVerticalScrollIndicator = false
         delegate.dataSource(collectionView: collectionView)
@@ -84,6 +89,12 @@ class MainView: UIView {
     @objc
     private func buttonTapped() {
         delegate.buttonActionConfiguration()
+    }
+    
+    @objc func reloadData() {
+        collectionView.refreshControl?.beginRefreshing()
+        delegate.pullToReload()
+        collectionView.refreshControl?.endRefreshing()
     }
     
     ///Заполнение сабвью

@@ -93,6 +93,12 @@ extension ViewController: MainViewProtocol {
             self.reloadViews(model: presenter.getModel(searchFilter: self.searchBar.text ?? ""))
         }
     }
+    
+    ///Обновляет модель и перезагружает коллекцию если потянуть вниз  
+    func pullToReload() {
+        guard let presenter else { return }
+        presenter.fetchModel(searchFilter: searchBar.text ?? "")
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -127,5 +133,10 @@ extension ViewController: UISearchBarDelegate {
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        guard let presenter else { return }
+        presenter.fetchModel(searchFilter: searchBar.text ?? "")
     }
 }
