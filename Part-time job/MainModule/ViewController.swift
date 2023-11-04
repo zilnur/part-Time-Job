@@ -112,4 +112,9 @@ extension ViewController: UISearchBarDelegate {
         guard let presenter = presenter else { return }
         reloadViews(model: presenter.getModel(searchFilter: searchText))
     }
+    
+    //Скрытие клавиатуры по нажатию на клавишу "Найти"
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
