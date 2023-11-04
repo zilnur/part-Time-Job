@@ -12,6 +12,7 @@ protocol PresenterProtocol {
     func getModel(searchFilter: String) -> [PartTimeJob]
     func jobSelected(searchFilter: String, indexPath: IndexPath)
     func setButtonConfigurationData(searchFilter: String) -> (count: Int, sumSalary: Double) 
+    func removeSavedJobs()
 }
 
 class Presenter {
@@ -55,7 +56,7 @@ extension Presenter: PresenterProtocol {
     ///Передача модели для заполнения UI с учетом фильтрации
     func getModel(searchFilter: String) -> [PartTimeJob] {
         if searchFilter.count > 0 {
-            let filteredModel = model.filter {$0.profession.contains(searchFilter) || $0.employer.contains(searchFilter)}
+            let filteredModel = model.filter {$0.profession.lowercased().contains(searchFilter.lowercased()) || $0.employer.lowercased().contains(searchFilter.lowercased())}
             return filteredModel
         } else {
             return model
@@ -83,5 +84,18 @@ extension Presenter: PresenterProtocol {
             sumSalary += job.salary
         }
         return (count, sumSalary)
+    }
+    
+    ///Удаление отработанных работ
+    func removeSavedJobs()  {
+        let savedJobs = model.compactMap { job in
+            if UserDefaults.standard.bool(forKey: job.id) {
+                return job.id
+            } else {
+                return nil
+            }
+        }
+        model.removeAll(where: {UserDefaults.standard.bool(forKey: $0.id)})
+        savedJobs.forEach {UserDefaults.standard.removeObject(forKey: $0)}
     }
 }

@@ -53,7 +53,7 @@ extension ViewController: ViewProtocol {
         snapshot.appendSections([0])
         snapshot.appendItems(model)
         dataSource.apply(snapshot, animatingDifferences: true)
-        mainView.setButtonTitleAndColor(count: presenter!.setButtonConfigurationData(searchFilter: searchBar.text ?? "").count)
+        mainView.setButtonTitleAndColor(count: presenter!.setButtonConfigurationData(searchFilter: "").count)
     }
     
     ///Вызов алерта
@@ -86,7 +86,12 @@ extension ViewController: MainViewProtocol {
     func buttonActionConfiguration() {
         guard let presenter = presenter else { return }
         let salary = presenter.setButtonConfigurationData(searchFilter: "").sumSalary
-        alert(rirle: "Поздравляем", text: "Вы заработали " + String(localized: "\(salary) money"), handler: nil)
+        alert(rirle: "Поздравляем", text: "Вы заработали " + String(localized: "\(salary) money")) { [weak self] _ in
+            guard let self,
+            let presenter = self.presenter else { return }
+            presenter.removeSavedJobs()
+            self.reloadViews(model: presenter.getModel(searchFilter: ""))
+        }
     }
 }
 
@@ -99,7 +104,7 @@ extension ViewController: UICollectionViewDelegate {
         presenter.jobSelected(searchFilter: searchBar.text ?? "", indexPath: indexPath)
         cell.cellSelected()
         UIView.animate(withDuration: 0.4) { [unowned self] in
-            self.mainView.setButtonTitleAndColor(count: presenter.setButtonConfigurationData(searchFilter: self.searchBar.text ?? "").count)
+            self.mainView.setButtonTitleAndColor(count: presenter.setButtonConfigurationData(searchFilter: "").count)
         }
     }
 }

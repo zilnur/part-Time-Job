@@ -24,6 +24,7 @@ class CollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 15
         contentView.layer.masksToBounds = true
         layer.cornerRadius = 15
+        layer.borderWidth = 1
         layer.masksToBounds = false
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 15)
         layer.shadowPath = shadowPath.cgPath
@@ -110,6 +111,7 @@ class CollectionViewCell: UICollectionViewCell {
         timeLabel.setupText(text: model.date.toDate(format: .time))
         dateLabel.setupText(text: model.date.toDate(format: .date))
         self.layer.shadowColor = UserDefaults.standard.bool(forKey: model.id) ? UIColor.yellowBackground.cgColor : UIColor.grayShadow.cgColor
+        self.layer.borderColor = UserDefaults.standard.bool(forKey: model.id) ? UIColor.yellowBackground.cgColor : UIColor.clear.cgColor
     }
     
     ///Изменение цвета тени
@@ -117,6 +119,7 @@ class CollectionViewCell: UICollectionViewCell {
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self else { return }
             self.layer.shadowColor = self.layer.shadowColor == UIColor.grayShadow.cgColor ? UIColor.yellowBackground.cgColor : UIColor.grayShadow.cgColor
+            self.layer.borderColor = self.layer.borderColor == UIColor.clear.cgColor ? UIColor.yellowBackground.cgColor : UIColor.clear.cgColor
         }
     }
 }
