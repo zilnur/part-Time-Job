@@ -90,7 +90,7 @@ extension ViewController: MainViewProtocol {
             guard let self,
             let presenter = self.presenter else { return }
             presenter.removeSavedJobs()
-            self.reloadViews(model: presenter.getModel(searchFilter: ""))
+            self.reloadViews(model: presenter.getModel(searchFilter: self.searchBar.text ?? ""))
         }
     }
 }
@@ -120,6 +120,12 @@ extension ViewController: UISearchBarDelegate {
     
     //Скрытие клавиатуры по нажатию на клавишу "Найти"
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+}
+
+extension ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
     }
 }
