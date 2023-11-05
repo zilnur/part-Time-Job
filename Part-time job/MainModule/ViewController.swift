@@ -94,7 +94,7 @@ extension ViewController: MainViewProtocol {
         }
     }
     
-    ///Обновляет модель и перезагружает коллекцию если потянуть вниз  
+    ///Обновляет модель и перезагружает коллекцию если потянуть вниз
     func pullToReload() {
         guard let presenter else { return }
         presenter.fetchModel(searchFilter: searchBar.text ?? "")
@@ -131,12 +131,8 @@ extension ViewController: UISearchBarDelegate {
 }
 
 extension ViewController: UIScrollViewDelegate {
+    //Скритые клавиатуры при скролле
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        guard let presenter else { return }
-        presenter.fetchModel(searchFilter: searchBar.text ?? "")
     }
 }
