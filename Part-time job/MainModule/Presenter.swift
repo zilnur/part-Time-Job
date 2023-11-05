@@ -88,13 +88,7 @@ extension Presenter: PresenterProtocol {
     
     ///Удаление отработанных работ
     func removeSavedJobs()  {
-        let savedJobs = model.compactMap { job in
-            if UserDefaults.standard.bool(forKey: job.id) {
-                return job.id
-            } else {
-                return nil
-            }
-        }
+        let savedJobs = model.compactMap { UserDefaults.standard.bool(forKey: $0.id) ? $0.id : nil}
         model.removeAll(where: {UserDefaults.standard.bool(forKey: $0.id)})
         savedJobs.forEach {UserDefaults.standard.removeObject(forKey: $0)}
     }

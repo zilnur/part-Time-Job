@@ -38,17 +38,6 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 20, y: rect.midY))
-        path.addLine(to: CGPoint(x: rect.maxX - 20, y: rect.midY))
-        path.lineWidth = 1
-        let color = UIColor.systemGroupedBackground
-        color.setStroke()
-        path.stroke()
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         professionLabel.text = nil
@@ -70,6 +59,7 @@ class CollectionViewCell: UICollectionViewCell {
         companyLabel.font = .systemFont(ofSize: 13, weight: .semibold)
         
         setupSubviews()
+        addSeparator()
     }
     
     private func setupSubviews() {
@@ -100,6 +90,17 @@ class CollectionViewCell: UICollectionViewCell {
         dateLabel.anchor(bottom: contentView.bottomAnchor,
                          trailing: timeLabel.leadingAnchor,
                          padding: UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 4))
+    }
+    
+    private func addSeparator() {
+        let view = UIView()
+        view.backgroundColor = .grayBackground
+        contentView.addSubview(view)
+        view.anchor(leading: contentView.leadingAnchor,
+                    trailing: contentView.trailingAnchor,
+                    padding: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20), 
+                    size: CGSize(width: 0, height: 1))
+        view.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
     
     ///Заполнение SubViews
