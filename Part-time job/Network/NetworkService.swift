@@ -13,11 +13,12 @@ protocol NetworkServiceProtocol {
 
 class NetworkService {
     
+    //Ввиду отсутствия альтернативных путей в метод не добавлены параметры path и queryItems
     ///Создание URL из строки с помощью URLComponents
     private func url() throws -> URL {
         var components = URLComponents()
-        components.scheme = "http"
-        components.host = "185.174.137.159"
+        components.scheme = "https"
+        components.host = "taverna.su"
         components.path = "/jobs"
         if let url = components.url {
             return url
@@ -35,7 +36,6 @@ class NetworkService {
 }
 
 extension NetworkService: NetworkServiceProtocol {
-    
     ///Запрос в сеть с дальнейшей обработкой результата в замыкании
     func task<model: Decodable>(modelType: model.Type, handler: @escaping (Result<model, Error>) -> Void) throws {
         let url = try url()
